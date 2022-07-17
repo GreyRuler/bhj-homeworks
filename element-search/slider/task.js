@@ -1,18 +1,24 @@
 const sliders = [...document.querySelectorAll('.slider__item')];
 const sliderDots = [...document.querySelector('.slider__dots').children];
 
-function disableCurrentDot() {
-    const currentDot = sliderDots.find(item =>
-        item.className === "slider__dot slider__dot_active"
-    );
-    currentDot.className = "slider__dot";
-}
-
-function disableCurrentSlider() {
-    const currentSlider = sliders.find(item => 
+function disable() {
+    const currentActiveIndex = sliders.findIndex(item => 
         item.className === "slider__item slider__item_active"
     );
-    currentSlider.className = "slider__item";
+    sliders[currentActiveIndex].className = "slider__item";
+    sliderDots[currentActiveIndex].className = "slider__dot";
+    return currentActiveIndex;
+}
+
+function active(indexCurrent) {
+    let index = indexCurrent;
+    if (index < 0) {
+        index = sliders.length - 1;
+    } else if (index >= sliders.length) {
+        index = 0;
+    }
+    sliders[index].className = "slider__item slider__item_active";
+    sliderDots[index].className = "slider__dot slider__dot_active";
 }
 
 const sliderArrowPrev = document.querySelector('.slider__arrow_prev');
@@ -20,16 +26,8 @@ sliderArrowPrev.onclick = () => {
     const currentSliderIndex = sliders.findIndex(item => 
         item.className === "slider__item slider__item_active"
     );
-    disableCurrentDot();
-    if (currentSliderIndex - 1 < 0) {
-        sliders[currentSliderIndex].className = "slider__item";
-        sliders[sliders.length - 1].className += " slider__item_active";
-        sliderDots[sliders.length - 1].className += " slider__dot_active";
-    } else {
-        sliders[currentSliderIndex].className = "slider__item";
-        sliders[currentSliderIndex - 1].className += " slider__item_active";
-        sliderDots[currentSliderIndex - 1].className += " slider__dot_active"
-    }
+    disable();
+    active(currentSliderIndex - 1);
 }
 
 const sliderArrowNext = document.querySelector('.slider__arrow_next');
@@ -37,26 +35,13 @@ sliderArrowNext.onclick = () => {
     const currentSliderIndex = sliders.findIndex(item => 
         item.className === "slider__item slider__item_active"
     );
-    disableCurrentDot();
-    if (currentSliderIndex + 1 < sliders.length) {
-        sliders[currentSliderIndex].className = "slider__item";
-        sliders[currentSliderIndex + 1].className += " slider__item_active";
-        sliderDots[currentSliderIndex + 1].className += " slider__dot_active";
-    } else {
-        sliders[currentSliderIndex].className = "slider__item";
-        sliders[0].className += " slider__item_active";
-        sliderDots[0].className += " slider__dot_active";
-    }
+    disable();
+    active(currentSliderIndex + 1);
 }
 
-sliderDots.forEach(item => {
+sliderDots.forEach((item, index) => {
     item.onclick = () => {
-        disableCurrentDot();
-        item.className += " slider__dot_active";
-        disableCurrentSlider();
-        const currentDotIndex = sliderDots.findIndex(item =>
-            item.className === "slider__dot slider__dot_active"
-        );
-        sliders[currentDotIndex].className += " slider__item_active";
+        disable();
+        active(index);
     }
 });
