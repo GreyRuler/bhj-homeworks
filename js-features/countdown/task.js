@@ -12,9 +12,9 @@ const decrementTimer = function() {
 const intervalId = setInterval(decrementTimer, 1000);
 */
 
-// Задание 3
-/*
-const timer = document.getElementById("timer");
+// Задание 2
+
+/* const timer = document.getElementById("timer");
 let mill = 162000000;
 
 const decrementTimer = function() {
@@ -26,12 +26,11 @@ const decrementTimer = function() {
         clearInterval(intervalId);
     }
 }
-const intervalId = setInterval(decrementTimer, 1000);
-*/
+const intervalId = setInterval(decrementTimer, 1); */
 
 // Задание 3
 
-const timer = document.getElementById("timer");
+/* const timer = document.getElementById("timer");
 const urlDownload = "https://drive.google.com/uc?export=download&id=15jO8A03Dj0cHcPCfIJBNDpar0PFViErK"
 
 const decrementTimer = function() {
@@ -41,5 +40,5 @@ const decrementTimer = function() {
         clearInterval(intervalId);
     }
 }
-const intervalId = setInterval(decrementTimer, 1000);
+const intervalId = setInterval(decrementTimer, 1000); */
 
