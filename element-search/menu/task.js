@@ -7,6 +7,10 @@ menuMain.forEach(item => {
             const currentActiveMenuSub = menuSub.find(item =>
                 item.className === "menu menu_sub menu_active"
             )
+            if (item === currentActiveMenuSub) {
+                item.className = "menu menu_sub";
+                return false;
+            }
             if (currentActiveMenuSub !== undefined) {
                 currentActiveMenuSub.className = "menu menu_sub";
             }
