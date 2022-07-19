@@ -1,5 +1,5 @@
 // Задание 1
-/*
+
 const timer = document.getElementById("timer");
 
 const decrementTimer = function() {
@@ -10,7 +10,6 @@ const decrementTimer = function() {
     }
 }
 const intervalId = setInterval(decrementTimer, 1000);
-*/
 
 // Задание 2
 
