@@ -12,5 +12,5 @@ const isInViewport = function(element) {
 }
 
 reveals.forEach(revel => {
-    setInterval(isInViewport, 100, revel)
+    setInterval(isInViewport, 1000, revel)
 })
