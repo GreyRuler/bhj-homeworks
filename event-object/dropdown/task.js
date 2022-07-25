@@ -13,7 +13,7 @@ dropdowns.forEach(item => {
         })
     })
     dropdown.addEventListener('click', function() {
-        if (dropdownList.className == 'dropdown__list dropdown__list_active') {            
+        if (dropdownList.className === 'dropdown__list dropdown__list_active') {
             dropdownList.className = 'dropdown__list'
             return
         }
