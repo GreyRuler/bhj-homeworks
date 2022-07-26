@@ -31,7 +31,7 @@ products.forEach(product => {
     const increment = product.querySelector('.product__quantity-control_inc')
     const count = product.querySelector('.product__quantity-value')
     const productAdd = product.querySelector('.product__add')
-    const image = product.querySelector('img').getAttribute("src")
+    const imageElement = product.querySelector('img')
     const productId = product.dataset.id
 
     decrement.addEventListener('click', () => {
@@ -44,16 +44,32 @@ products.forEach(product => {
         count.textContent = Number.parseInt(count.textContent) + 1
     })
     productAdd.addEventListener('click', () => {
-        const cartInCartProducts = [...cartProducts.children].find(element =>
+        let cartInCartProducts = [...cartProducts.children].find(element =>
             element.dataset.id === productId
         )
         if (cartInCartProducts) {
             const cartCount = cartInCartProducts.querySelector('.cart__product-count')
             cartCount.textContent = Number.parseInt(cartCount.textContent) + Number.parseInt(count.textContent)
         } else {
-            const cart = createCart(productId, image, count.textContent)
-            cartProducts.appendChild(cart)
+            cartInCartProducts = createCart(productId, imageElement.getAttribute("src"), count.textContent)
+            cartProducts.appendChild(cartInCartProducts)
         }
         cartProducts.parentElement.style.display = "block"
+
+        const cloneImage = imageElement.cloneNode(false)
+        cloneImage.classList.add('product-shadow')
+        product.querySelector('img').insertAdjacentElement( "beforebegin", cloneImage)
+        let top = product.querySelector('img').getBoundingClientRect().top
+        let left = product.querySelector('img').getBoundingClientRect().left
+        let y = cartInCartProducts.querySelector('img').getBoundingClientRect().top - top + "px"
+        let x = cartInCartProducts.querySelector('img').getBoundingClientRect().left - left + "px"
+        cloneImage.setAttribute(
+            'style',
+            `transform: translate(${x},${y});
+            transition: all 2s ease-in-out;`
+        )
+        setTimeout(function() {
+            this.remove()
+        }.bind(cloneImage), 2000)
     })
 })
