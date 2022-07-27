@@ -1,20 +1,16 @@
 const tasksInput = document.querySelector('.tasks__input')
 const button = document.querySelector('.tasks__add')
 const tasksList = document.querySelector('.tasks__list')
-let countStorageTask = localStorage.length
+let storageTask = JSON.parse(localStorage.getItem("tasks")) || []
 
-for (const item in localStorage) {
-    const content = localStorage.getItem(item)
-    if (content) {
-        const task = createTask(content, item)
-        tasksList.appendChild(task)
-    }
-}
+storageTask.forEach(element => {
+    const task = createTask(element)
+    tasksList.appendChild(task)
+})
 
-function createTask(inputValue, countStorageTask) {
+function createTask(inputValue) {
     const task = document.createElement("div")
     task.classList.add("task")
-    task.setAttribute("data-id", countStorageTask)
     const taskTitle = document.createElement("div")
     taskTitle.classList.add("task__title")
     taskTitle.innerText = inputValue
@@ -25,7 +21,11 @@ function createTask(inputValue, countStorageTask) {
     taskRemove.setAttribute("href", "#")
     taskRemove.addEventListener('click', (event) => {
         task.remove()
-        localStorage.removeItem(task.dataset.id)
+        storageTask.forEach((element, index) => {
+            if (element === task.nextElementSibling) {
+                delete storageTask[index]
+            }
+        })
         event.preventDefault()
     })
     task.appendChild(taskRemove)
@@ -33,10 +33,11 @@ function createTask(inputValue, countStorageTask) {
 }
 
 button.addEventListener('click', (event) => {
-    if (tasksInput.value) {
-        const task = createTask(tasksInput.value, countStorageTask)
+    if (tasksInput.value.trim()) {
+        const task = createTask(tasksInput.value)
         tasksList.appendChild(task)
-        localStorage.setItem(countStorageTask++, tasksInput.value)
+        storageTask.push(tasksInput.value)
+        localStorage.setItem("tasks", JSON.stringify(storageTask))
         tasksInput.value = ""
         event.preventDefault()
     }

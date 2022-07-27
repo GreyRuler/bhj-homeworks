@@ -17,7 +17,10 @@ function createCart(productId, imageUrl, count) {
     cartRemove.setAttribute("href", "#")
     cartRemove.addEventListener('click', (event) => {
         cartElement.remove()
-        cartProducts.parentElement.style.display = "none"
+        console.log(cartProducts.children)
+        if (!cartProducts.children) {
+            cartProducts.parentElement.style.display = "none"
+        }
         event.preventDefault()
     })
     cartElement.appendChild(cartRemove)
