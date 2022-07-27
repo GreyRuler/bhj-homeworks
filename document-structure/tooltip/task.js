@@ -10,7 +10,7 @@ hasTooltip.forEach(element => {
             if (currentTooltip) currentTooltip.remove()
             tooltip = document.createElement('div')
             tooltip.classList.add('tooltip', 'tooltip_active')
-            tooltip.setAttribute("data-position", "right")
+            tooltip.setAttribute("data-position", "bottom")
             tooltip.innerText = element.title
             element.insertAdjacentElement("afterend", tooltip)
         }
@@ -18,7 +18,7 @@ hasTooltip.forEach(element => {
         const widthToElement = window.scrollX + element.getBoundingClientRect().left
         switch (tooltip.dataset.position) {
             case "top":
-                tooltip.style.top = heightToElement - 20 + "px"
+                tooltip.style.top = heightToElement - 30 + "px"
                 tooltip.style.left = widthToElement + "px"
                 break
             case "left":
