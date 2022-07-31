@@ -26,7 +26,7 @@ const timeout = setInterval(() => {
 xhr.open('GET', 'https://netology-slow-rest.herokuapp.com')
 
 xhr.addEventListener('readystatechange', (e) => {
-    if (xhr.readyState === xhr.DONE) {
+    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
         const response =  JSON.parse(xhr.responseText)
         const valute = response.response.Valute
         localStorage.setItem("valute", JSON.stringify(valute))
